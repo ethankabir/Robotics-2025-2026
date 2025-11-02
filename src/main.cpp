@@ -3,15 +3,13 @@
 /*    Module:       main.cpp                                                  */
 /*    Author:       ethan                                                     */
 /*    Created:      10/31/2025, 7:22:14 PM                                    */
-/*    Description:  V5 project                                                */
+/*    Description:  V5 competition bot                                        */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
 
+
 using namespace vex;
-
-
-// define your global instances of motors and other devices here
 
 
 int main() {
@@ -24,20 +22,20 @@ int main() {
     while(1) {
         
         // Pneumatics handler
-        bool pistonActive = false;
+        bool PistonActive = false;
 
         if(Controller1.ButtonR1.pressing())
-        [
-            pistonActive = !pistonActive;
-        ]
-        
-        if(pistonActive)
         {
-            piston.set(true);
+            PistonActive = !PistonActive;
+        }
+        
+        if(PistonActive)
+        {
+            Piston.set(true);
         }
         else
         {
-            piston.set(false);
+            Piston.set(false);
         }
 
 
