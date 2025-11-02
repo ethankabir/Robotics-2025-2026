@@ -25,8 +25,11 @@ drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295,
 /* velocity = 100 Drive = break*/
 
 /*---------------------------------Intake Motors-----------------------------------------*/
-/*motor Motor1 = motor(PORT7, ratio6_1, false);
-motor Motor2 = motor(PORT8, ratio6_1, false); */
+motor Intake1 = motor(PORT7, ratio6_1, false);
+motor Intake2 = motor(PORT8, ratio6_1, false); 
+
+/*---------------------------------Pneumatics-----------------------------------------*/
+digital_out Piston = digital_out(Brain.ThreeWirePort.A);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
