@@ -29,10 +29,11 @@ int main() {
             PistonActive = !PistonActive;
         }
         
-        if(PistonActive)
+        else if(PistonActive)
         {
             Piston.set(true);
         }
+        
         else
         {
             Piston.set(false);

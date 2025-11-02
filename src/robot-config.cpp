@@ -11,22 +11,20 @@ brain  Brain;
 controller Controller1 = controller(primary);
 
 /*---------------------------------Drive Train-----------------------------------------*/
-motor leftMotorA = motor(PORT3, ratio18_1, false);
-motor leftMotorB = motor(PORT1, ratio18_1, false);
-motor leftMotorC = motor(PORT2, ratio18_1, false);
-motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB, leftMotorC);
+motor leftMotorA = motor(PORT11, ratio6_1, false);
+motor leftMotorB = motor(PORT1, ratio6_1, false);
+motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 
-motor rightMotorA = motor(PORT13, ratio6_1, true);
-motor rightMotorB = motor(PORT12, ratio6_1, true);
-motor rightMotorC = motor(PORT11, ratio6_1, true);
-motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB, rightMotorC);
+motor rightMotorA = motor(PORT10, ratio6_1, true);
+motor rightMotorB = motor(PORT20, ratio6_1, true);
+motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
-
+ 
 /* velocity = 100 Drive = break*/
 
 /*---------------------------------Intake Motors-----------------------------------------*/
 motor Intake1 = motor(PORT7, ratio6_1, false);
-motor Intake2 = motor(PORT8, ratio6_1, false); 
+motor Intake2 = motor(PORT2, ratio6_1, false); 
 
 /*---------------------------------Pneumatics-----------------------------------------*/
 digital_out Piston = digital_out(Brain.ThreeWirePort.A);
