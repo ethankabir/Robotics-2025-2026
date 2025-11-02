@@ -11,25 +11,27 @@ brain  Brain;
 controller Controller1 = controller(primary);
 
 /*---------------------------------Drive Train-----------------------------------------*/
-motor leftMotorA = motor(PORT11, ratio6_1, false);
-motor leftMotorB = motor(PORT1, ratio6_1, false);
+motor leftMotorA = motor(PORT1, ratio6_1, true);
+motor leftMotorB = motor(PORT11, ratio6_1, true);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 
-motor rightMotorA = motor(PORT10, ratio6_1, true);
-motor rightMotorB = motor(PORT20, ratio6_1, true);
+
+
+motor rightMotorA = motor(PORT20, ratio6_1, false);
+motor rightMotorB = motor(PORT10, ratio6_1, false);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
- 
+
+
 /* velocity = 100 Drive = break*/
 
 /*---------------------------------Intake Motors-----------------------------------------*/
-motor Intake1 = motor(PORT7, ratio6_1, false);
+motor Intake1 = motor(PORT12, ratio6_1, false);
 motor Intake2 = motor(PORT2, ratio6_1, false); 
 
 /*---------------------------------Pneumatics-----------------------------------------*/
 digital_out Piston = digital_out(Brain.ThreeWirePort.A);
 
-// VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
@@ -38,6 +40,7 @@ bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
 // define a task that will handle monitoring inputs from Controller1
 int rc_auto_loop_function_Controller1() {
+
   // process the controller input every 20 milliseconds
   // update the motors based on the input values
   while(true) {
@@ -99,4 +102,8 @@ int rc_auto_loop_function_Controller1() {
  */
 void vexcodeInit( void ) {
   task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
+
+  // Brake mode by default
+  RightDriveSmart.setStopping(brake);
+  LeftDriveSmart.setStopping(brake);
 }

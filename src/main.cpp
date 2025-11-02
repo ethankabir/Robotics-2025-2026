@@ -24,7 +24,7 @@ int main() {
         // Pneumatics handler
         bool PistonActive = false;
 
-        if(Controller1.ButtonR1.pressing())
+        if(Controller1.ButtonA.pressing())
         {
             PistonActive = !PistonActive;
         }
@@ -33,7 +33,7 @@ int main() {
         {
             Piston.set(true);
         }
-        
+
         else
         {
             Piston.set(false);
@@ -43,13 +43,13 @@ int main() {
         // Intake handler
         Intake1.setVelocity(100, pct);
 
-        if(Controller1.ButtonA.pressing())
+        if(Controller1.ButtonR2.pressing())
         {
             Intake1.spin(forward);
             Intake2.spin(forward);
         }
 
-        if(Controller1.ButtonB.pressing())
+        else if(Controller1.ButtonL2.pressing())
         {
             Intake1.spin(reverse);
             Intake2.spin(reverse);
