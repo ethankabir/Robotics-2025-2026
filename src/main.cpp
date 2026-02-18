@@ -1,67 +1,53 @@
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       ethan                                                     */
-/*    Created:      10/31/2025, 7:22:14 PM                                    */
-/*    Description:  V5 competition bot                                        */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
 #include "vex.h"
 
-
 using namespace vex;
+using namespace mik;
 
+task UI;
+
+static int run_UI() {
+    UI_init();
+    UI_controller_auton_selector();
+    UI_render();
+    return 0;
+}
+
+void pre_auton() {
+    init();
+    default_constants();
+    UI = task(run_UI);
+}
+
+void auton(void) {
+    UI.stop();
+    auton_scr->start_auton();
+}
+
+void user_control(void) {
+    while (calibrating) { task::sleep(50); }
+
+    // How you want your drivetrain to stop during driver
+    chassis.set_brake_type(brakeType::coast);
+    
+    assembly.init();
+
+    while (true) {
+        if (!control_disabled()) {
+            // Add your user control code here
+            chassis.control(drive_mode::SPLIT_ARCADE_CURVED);
+            assembly.control();
+        }
+        task::sleep(5);
+    }
+}
 
 int main() {
+    Competition.autonomous(auton);
+    Competition.drivercontrol(user_control);
 
-    // Drive train handler 
-    vexcodeInit();
+    pre_auton();
 
-    Brain.Screen.printAt( 10, 50, "Hello V5" );
-   
-    while(1) {
-        
-        // Pneumatics handler
-        bool PistonActive = false;
-
-        if(Controller1.ButtonA.pressing())
-        {
-            PistonActive = !PistonActive;
-        }
-        
-        else if(PistonActive)
-        {
-            Piston.set(true);
-        }
-
-        else
-        {
-            Piston.set(false);
-        }
-
-
-        // Intake handler
-        Intake1.setVelocity(100, pct);
-
-        if(Controller1.ButtonR2.pressing())
-        {
-            Intake1.spin(forward);
-            Intake2.spin(forward);
-        }
-
-        else if(Controller1.ButtonL2.pressing())
-        {
-            Intake1.spin(reverse);
-            Intake2.spin(reverse);
-        }
-
-        else 
-        {
-            Intake1.stop();
-            Intake2.stop();
-        }
-
-        // Allow other tasks to run
-        this_thread::sleep_for(10);
+    while (true) {
+        task::sleep(100);
     }
 }
